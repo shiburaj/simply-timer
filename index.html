@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Timer App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Simply Timer</h1>
+            <p class="subtitle">Professional Count Down &amp; Count Up Timer with State Saving and Alarms</p>
+        </header>
+
+        <main>
+            <div class="timer-mode">
+                <button id="countdownBtn" class="mode-btn active">Count Down</button>
+                <button id="countupBtn" class="mode-btn">Count Up</button>
+            </div>
+
+            <div class="timer-display">
+                <div class="time-segment" id="hoursSegment">
+                    <span class="time-value" id="hours">00</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <span class="separator" id="hourSeparator">:</span>
+                
+                <div class="time-segment" id="minutesSegment">
+                    <span class="time-value" id="minutes">00</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+                <span class="separator">:</span>
+                
+                <div class="time-segment">
+                    <span class="time-value" id="seconds">00</span>
+                    <span class="time-label">Seconds</span>
+                </div>
+            </div>
+
+            <div class="time-input">
+                <div class="input-group">
+                    <label>Hours</label>
+                    <input type="number" id="inputHours" min="0" max="23" value="0">
+                </div>
+                <span class="input-separator">:</span>
+                <div class="input-group">
+                    <label>Minutes</label>
+                    <input type="number" id="inputMinutes" min="0" max="59" value="0">
+                </div>
+                <span class="input-separator">:</span>
+                <div class="input-group">
+                    <label>Seconds</label>
+                    <input type="number" id="inputSeconds" min="0" max="59" value="0">
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="startBtn" class="control-btn start-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    Start
+                </button>
+                <button id="pauseBtn" class="control-btn pause-btn" disabled>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                    </svg>
+                    Pause
+                </button>
+                <button id="resetBtn" class="control-btn reset-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                    </svg>
+                    Reset
+                </button>
+                <button id="fullscreenBtn" class="control-btn fullscreen-btn" disabled>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                    </svg>
+                    Fullscreen
+                </button>
+            </div>
+
+            <div class="alarms-section">
+                <h3>Set Alarms</h3>
+                <div class="alarm-input-container">
+                    <div class="alarm-input-group">
+                        <input type="number" id="alarmHours" min="0" max="23" value="0" placeholder="HH">
+                        <span>:</span>
+                        <input type="number" id="alarmMinutes" min="0" max="59" value="0" placeholder="MM">
+                        <span>:</span>
+                        <input type="number" id="alarmSeconds" min="0" max="59" value="0" placeholder="SS">
+                        <button id="addAlarmBtn" class="add-alarm-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            Add Alarm
+                        </button>
+                    </div>
+                    <div id="alarmsList" class="alarms-list"></div>
+                </div>
+            </div>
+
+            <div class="presets">
+                <h3>Quick Presets</h3>
+                <div class="preset-buttons">
+                    <button class="preset-btn" data-time="60">1 min</button>
+                    <button class="preset-btn" data-time="300">5 min</button>
+                    <button class="preset-btn" data-time="600">10 min</button>
+                    <button class="preset-btn" data-time="900">15 min</button>
+                    <button class="preset-btn" data-time="1800">30 min</button>
+                    <button class="preset-btn" data-time="3600">1 hour</button>
+                    <button class="preset-btn" data-time="7200">2 hours</button>
+                    <button class="preset-btn" data-time="8100">2:15:00</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Simple Timer App. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Fullscreen View -->
+    <div id="fullscreenView" class="fullscreen-view">
+        <button id="exitFullscreenBtn" class="exit-fullscreen-btn" title="Exit Fullscreen (ESC)">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+            </svg>
+        </button>
+        <div class="fullscreen-timer">
+            <div class="fullscreen-mode-indicator" id="fullscreenMode">COUNT DOWN</div>
+            <div class="fullscreen-time">
+                <span id="fullscreenHours" class="fullscreen-segment">00</span>
+                <span id="fullscreenHourSep" class="fullscreen-separator">:</span>
+                <span id="fullscreenMinutes" class="fullscreen-segment">00</span>
+                <span class="fullscreen-separator">:</span>
+                <span id="fullscreenSeconds" class="fullscreen-segment">00</span>
+            </div>
+            <div class="fullscreen-hint">Press ESC or click the button above to exit</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
